@@ -1,6 +1,8 @@
 import sys
 import pygame
 import random
+import time
+
 
 class Snake:
     def __init__(self, x, y, direction):
@@ -38,6 +40,7 @@ class Snake:
             return True
         return False
 
+
 class Food:
     def __init__(self, x, y):
         self.x = x
@@ -60,6 +63,8 @@ BLUE = (0, 0, 255)
 clock = pygame.time.Clock()
 snake = Snake(10, 10, 'up')
 food = Food(5, 5)
+speed = 10
+
 
 while True:
     for event in pygame.event.get():
@@ -78,12 +83,21 @@ while True:
                 snake.direction = 'left'
             elif event.key == pygame.K_RIGHT:
                 snake.direction = 'right'
+            elif event.key == pygame.K_y:
+                snake = Snake(10, 10, 'up')
+                food = Food(5, 5)
+                break
+            elif event.key == pygame.K_n:
+                pygame.quit()
+                sys.exit()
 
     screen.fill(BLACK)
 
     for pos in snake.body:
-        pygame.draw.rect(screen, WHITE, pygame.Rect(pos[0] * 40, pos[1] * 40, 40, 40))
-    pygame.draw.rect(screen, RED, pygame.Rect(food.x * 40, food.y * 40, 40, 40))
+        pygame.draw.rect(screen, WHITE, pygame.Rect(
+            pos[0] * 40, pos[1] * 40, 40, 40))
+    pygame.draw.rect(screen, RED, pygame.Rect(
+        food.x * 40, food.y * 40, 40, 40))
 
     snake.check_collision(food)
     if snake.check_wall_collision() or snake.check_self_collision():
@@ -124,7 +138,7 @@ while True:
             if event.key == pygame.K_y:
                 snake = Snake(10, 10, 'up')
                 food = Food(5, 5)
-                clock.tick(5)
+                break
             elif event.key == pygame.K_n:
                 pygame.quit()
                 sys.exit()
