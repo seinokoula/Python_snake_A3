@@ -3,52 +3,8 @@ import pygame
 import random
 import time
 
-
-class Snake:
-    def __init__(self, x, y, direction):
-        self.x = x
-        self.y = y
-        self.direction = direction
-        self.length = 1
-        self.body = [(self.x, self.y)]
-
-    def move(self):
-        if self.direction == 'up':
-            self.y -= 1
-        elif self.direction == 'down':
-            self.y += 1
-        elif self.direction == 'left':
-            self.x -= 1
-        elif self.direction == 'right':
-            self.x += 1
-
-        self.body.insert(0, (self.x, self.y))
-        self.body = self.body[:self.length]
-
-    def check_collision(self, food):
-        if self.x == food.x and self.y == food.y:
-            self.length += 1
-            food.move()
-
-    def check_wall_collision(self):
-        if self.x < 0 or self.x > 19 or self.y < 0 or self.y > 14:
-            return True
-        return False
-
-    def check_self_collision(self):
-        if (self.x, self.y) in self.body[1:]:
-            return True
-        return False
-
-
-class Food:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def move(self):
-        self.x = random.randint(0, 19)
-        self.y = random.randint(0, 14)
+from snake import Snake
+from food import Food
 
 
 pygame.init()
