@@ -33,3 +33,9 @@ class Snake:
         if (self.x, self.y) in self.body[1:]:
             return True
         return False
+
+    def get_head_position(self):
+        return self.x, self.y
+
+    def get_length(self):
+        return self.length

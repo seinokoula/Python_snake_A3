@@ -16,5 +16,8 @@ The goal of the game is to eat as many apples as possible. The snake is controll
 
 -   Press the arrow keys to move the snake
 -   Press the escape or n key to quit the game
--   Press the enter y to restart the game
+-   Press the enter y to restart the game (not working yet)
 
+## Important Points
+
+-   The snake will move faster as it grows longer (is not quite working yet)

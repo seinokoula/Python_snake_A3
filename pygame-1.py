@@ -1,11 +1,9 @@
 import sys
 import pygame
-import random
-import time
+
 
 from snake import Snake
 from food import Food
-
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -13,21 +11,19 @@ pygame.display.set_caption('Snake A3 Python')
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+GREY = (128, 128, 128)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 
 clock = pygame.time.Clock()
 snake = Snake(10, 10, 'up')
 food = Food(5, 5)
-speed = 10
+speed = 5
 
 
 while True:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        elif event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 sys.exit()
@@ -46,6 +42,12 @@ while True:
             elif event.key == pygame.K_n:
                 pygame.quit()
                 sys.exit()
+            elif snake.length > 1:
+                speed += 1
+            elif snake.length > 2:
+                speed += 2
+            elif snake.length > 3:
+                speed += 3
 
     screen.fill(BLACK)
 
@@ -55,6 +57,11 @@ while True:
     pygame.draw.rect(screen, RED, pygame.Rect(
         food.x * 40, food.y * 40, 40, 40))
 
+    for i in range(21):
+        pygame.draw.line(screen, GREY, (i * 40, 0), (i * 40, 600))
+    for i in range(16):
+        pygame.draw.line(screen, GREY, (0, i * 40), (800, i * 40))
+
     snake.check_collision(food)
     if snake.check_wall_collision() or snake.check_self_collision():
         break
@@ -62,13 +69,14 @@ while True:
     snake.move()
 
     pygame.display.flip()
+    pygame.display.update()
 
-    clock.tick(5)
+    clock.tick(speed)
 
 font = pygame.font.SysFont('Poppins', 30)
 text = font.render('Score: ' + str(snake.length - 1), True, WHITE)
 text_rect = text.get_rect()
-text_rect.center = (400, 300)
+text_rect.center = (400, 250)
 screen.blit(text, text_rect)
 pygame.display.flip()
 
@@ -77,25 +85,21 @@ if snake.length - 1 > high_score:
     high_score = snake.length - 1
     text = font.render('High Score: ' + str(high_score), True, BLUE)
     text_rect = text.get_rect()
-    text_rect.center = (400, 350)
+    text_rect.center = (400, 300)
     screen.blit(text, text_rect)
     pygame.display.flip()
 
 font = pygame.font.SysFont('Poppins', 30)
-text = font.render('Play Again? (y/n)', True, WHITE)
+text = font.render('Play Again? yes press y and quit press n', True, WHITE)
 text_rect = text.get_rect()
-text_rect.center = (400, 400)
+text_rect.center = (400, 350)
 screen.blit(text, text_rect)
 pygame.display.flip()
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_y:
-                snake = Snake(10, 10, 'up')
-                food = Food(5, 5)
-                break
-            elif event.key == pygame.K_n:
+            if event.key == pygame.K_n:
                 pygame.quit()
                 sys.exit()
 
