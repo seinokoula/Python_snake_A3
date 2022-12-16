@@ -81,14 +81,20 @@ while True:
     screen.blit(text, text_rect)
     pygame.display.flip()
 
+    score = 0
     high_score = 0
-    if snake.length - 1 > high_score:
-        high_score = snake.length - 1
-        text = font.render('High Score: ' + str(high_score), True, BLUE)
+    if snake.length - 1 > score:
+        score = snake.length - 1
+        text = font.render('High Score: ' + str(score), True, BLUE)
         text_rect = text.get_rect()
         text_rect.center = (400, 300)
         screen.blit(text, text_rect)
         pygame.display.flip()
+
+    high_score = score
+    if score > high_score:
+        high_score = score
+        print("The high score is:", high_score)
 
     font = pygame.font.SysFont('Poppins', 30)
     text = font.render('Play Again? yes press y and quit press n', True, WHITE)
@@ -104,12 +110,8 @@ while True:
                     pygame.quit()
                     sys.exit()
                 elif event.key == pygame.K_y:
-                    print("ok")
                     snake = Snake(10, 10, 'up')
                     food = Food(5, 5)
                     game = True
                     stop = False
                     break
-
-# pygame.time.wait(5000)
-# pygame.quit()
