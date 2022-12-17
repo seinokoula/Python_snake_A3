@@ -1,3 +1,7 @@
+import pygame
+
+WHITE = (255, 255, 255)
+
 class Snake:
     def __init__(self, x, y, direction):
         self.x = x
@@ -39,3 +43,18 @@ class Snake:
 
     def get_length(self):
         return self.length
+
+    def set_direction(self, direction):
+        if direction == 'up' and self.direction != 'down':
+            self.direction = 'up'
+        elif direction == 'down' and self.direction != 'up':
+            self.direction = 'down'
+        elif direction == 'left' and self.direction != 'right':
+            self.direction = 'left'
+        elif direction == 'right' and self.direction != 'left':
+            self.direction = 'right'
+    
+    def draw(self, screen):
+        for pos in self.body:
+            pygame.draw.rect(screen, WHITE, pygame.Rect(
+                pos[0] * 40, pos[1] * 40, 40, 40))

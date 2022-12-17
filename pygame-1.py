@@ -91,10 +91,13 @@ while True:
         screen.blit(text, text_rect)
         pygame.display.flip()
 
-    high_score = score
     if score > high_score:
         high_score = score
-        print("The high score is:", high_score)
+        text = font.render('High Score: ' + str(high_score), True, BLUE)
+        text_rect = text.get_rect()
+        text_rect.center = (400, 300)
+        screen.blit(text, text_rect)
+        pygame.display.flip()
 
     font = pygame.font.SysFont('Poppins', 30)
     text = font.render('Play Again? yes press y and quit press n', True, WHITE)
